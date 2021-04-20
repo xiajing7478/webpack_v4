@@ -1,7 +1,7 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
-const dev =require('./config/dev.js')
+const dev = require('./config/dev.js')
 module.exports = {
     entry: './src/js/main.js',
     output: {
@@ -36,33 +36,38 @@ module.exports = {
         stats: 'errors-only',
         proxy: {
             '/api': {
-              target: 'http://news.baidu.com', // 目标接口的域名
-              // secure: true,  // https 的时候 使用该参数
-              changeOrigin: true,  // 是否跨域
-              pathRewrite: {
-                '^/api' : ''  // 重写路径
-              }
+                target: 'http://news.baidu.com', // 目标接口的域名
+                // secure: true,  // https 的时候 使用该参数
+                changeOrigin: true, // 是否跨域
+                pathRewrite: {
+                    '^/api': '' // 重写路径
+                }
             }
-          }
+        }
     },
     module: {
-        rules:[
-            {
+        rules: [{
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /(node_modules)/
             },
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            },
-            {
-                test: /\.scss$/,
+                test: /\.(css|scss)$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-            }
+            },
+            //   {
+            //     loader: 'postcss-loader',
+            //     options: {
+            //         plugins: [
+            //             require('autoprefixer')({
+            //                 overrideBrowserslist: ['last 5 version', '>1%', 'ios 7']
+            //             })
+            //         ]
+            //     }
+            // },
         ]
     },
-    plugins:[
+    plugins: [
         new MiniCssExtractPlugin({
             filename: `[name].css`
         })
