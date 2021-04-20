@@ -1,8 +1,11 @@
 #app {
     .p {
         color: red;
-        span{
+        span {
             color: green;
         }
+    }
+    #test {
+        display: flex;
     }
 }
