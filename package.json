@@ -1,41 +1,42 @@
 {
-  "name": "webpack4",
-  "version": "1.0.0",
-  "description": "webpack",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xiajing7478/webpack_v4.git"
-  },
-  "keywords": [
-    "webpack4"
-  ],
-  "author": "xiajing",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "css-loader": "^5.2.2",
-    "mini-css-extract-plugin": "^1.4.1",
-    "node-sass": "^5.0.0",
-    "sass-loader": "^10.1.1",
-    "style-loader": "^2.0.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-merge": "^5.7.3"
-  },
-  "dependencies": {
-    "axios": "^0.21.1"
-  },
-  "bugs": {
-    "url": "https://github.com/xiajing7478/webpack_v4/issues"
-  },
-  "homepage": "https://github.com/xiajing7478/webpack_v4#readme"
+    "name": "webpack4",
+    "version": "1.0.0",
+    "description": "webpack",
+    "main": "index.js",
+    "scripts": {
+        "watch": "webpack serve",
+        "build": "webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xiajing7478/webpack_v4.git"
+    },
+    "keywords": [
+        "webpack4"
+    ],
+    "author": "xiajing",
+    "license": "ISC",
+    "devDependencies": {
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.5",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-2": "^6.24.1",
+        "css-loader": "^5.2.2",
+        "mini-css-extract-plugin": "^1.4.1",
+        "node-sass": "^5.0.0",
+        "sass-loader": "^10.1.1",
+        "style-loader": "^2.0.0",
+        "webpack": "^4.46.0",
+        "webpack-cli": "^4.6.0",
+        "webpack-dev-server": "^3.11.2",
+        "webpack-merge": "^5.7.3"
+    },
+    "dependencies": {
+        "axios": "^0.21.1"
+    },
+    "bugs": {
+        "url": "https://github.com/xiajing7478/webpack_v4/issues"
+    },
+    "homepage": "https://github.com/xiajing7478/webpack_v4#readme"
 }
