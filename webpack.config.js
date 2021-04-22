@@ -1,11 +1,17 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const dev = require('./config/dev.js')
 const DllReferencePlugin = require('webpack/lib/DllReferencePlugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const AutoDllPlugin = require('autodll-webpack-plugin')
+const webpackDllConfig = require('./webpack.dll.config.js')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HappyPack = require('happypack')
+const os = require('os')
+const threadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 module.exports = {
     entry: './src/js/main.js',
     output: {
@@ -52,11 +58,13 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: 'happypack/loader?id=happyBabel',
+                // loader: 'babel-loader',
                 exclude: /(node_modules)/
             },
             {
                 test: /\.(css|scss)$/,
+                // loader: 'happypack/loader?id=happyCSS',
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             },
             //   {
@@ -71,7 +79,23 @@ module.exports = {
             // },
         ]
     },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true
+            })
+        ]
+    },
     plugins: [
+        new HappyPack({
+            id: 'happyBabel',
+            loaders: [{
+                loader: 'babel-loader??cacheDirectory=true'
+            }],
+            threadPool,
+            verbose: true
+        }),
+
         new MiniCssExtractPlugin({
             filename: `[name].css`
         }),
@@ -101,6 +125,12 @@ module.exports = {
                     'jquery'
                 ]
             }
-        })
+        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap: true,
+        //     compress: {
+        //         warnings: false
+        //     }
+        // }),
     ]
 }
