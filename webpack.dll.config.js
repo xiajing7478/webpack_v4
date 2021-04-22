@@ -3,12 +3,13 @@ const DllPlugin = require('webpack/lib/DllPlugin')
 
 module.exports = {
     entry: {
-        jquery: ['jquery'],
-        echarts: ['echarts']
+        // jquery: ['jquery'],
+        // echarts: ['echarts']
+        vendor: ['jquery', 'echarts']
     },
     output: {
         filename: '[name].dll.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist/js'),
         library: '_dll_[name]'
     },
     plugins: [
@@ -19,7 +20,7 @@ module.exports = {
             */
             name: '_dll_[name]',
             /* 生成manifest文件输出的位置和文件名称 */
-            path: path.join(__dirname, 'dist', '[name].manifest.json')
+            path: path.join(__dirname, 'dist/js', '[name].manifest.json')
         })
     ]
 }

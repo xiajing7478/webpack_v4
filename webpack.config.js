@@ -2,23 +2,27 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
 const dev = require('./config/dev.js')
+const DllReferencePlugin = require('webpack/lib/DllReferencePlugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const AutoDllPlugin = require('autodll-webpack-plugin')
 module.exports = {
     entry: './src/js/main.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist'
+        // publicPath: './'
     },
     mode: 'development',
     devtool: 'cheap-module-eval-source-map', // 开发
     // devtool: 'cheap-module-source-map' // 生产
-    externals: {
-        jquery: 'jQuery'
-    },
+    // externals: {
+    //     jquery: 'jQuery'
+    // },
     resolve: {
-        alias: {
-            compents: './src/components'
-        },
+        // alias: {
+        //     compents: './src/components'
+        // },
         extensions: ['.js', '.vue', '.json']
     },
     devServer: {
@@ -70,6 +74,33 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: `[name].css`
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './index.html'
+        }),
+        new DllReferencePlugin({
+            manifest: require('./dist/js/vendor.manifest.json')
+        }),
+        // new DllReferencePlugin({
+        //     manifest: require('./dist/echarts.manifest.json')
+        // }),
+        // new AddAssetHtmlPlugin({
+        //     filepath: path.resolve(__dirname, 'dist/jquery.dll.js'),
+        //     outputPath: './',
+        //     publicPath: './',
+        //     includeSourcemap: false,
+        //     hash: false
+        // })
+        new AutoDllPlugin({
+            inject: true,
+            filename: '[name].js',
+            publicPath: './',
+            entry: {
+                vendor: [
+                    'jquery'
+                ]
+            }
         })
     ]
 }
