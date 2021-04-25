@@ -8,4 +8,7 @@
 6. 增加webpack.dll.config
 7. happypack happypack配合MiniCssExtractPlugin??
 8. webpack-parallel-uglify-plugin
+9. webpack-deep-scope-plugin
+10. hash chunckhash contenthash
+11. tree-shaking require('webpack-deep-scope-plugin').default
 
