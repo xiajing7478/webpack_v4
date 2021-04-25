@@ -14,10 +14,15 @@ const os = require('os')
 const loader = require('sass-loader')
 const threadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
-    entry: ['./src/js/main.js', './src/js/main2.js'],
+    // entry: ['./src/js/main.js', './src/js/main2.js'],
+    entry: {
+        main: './src/js/main.js',
+        main2: './src/js/main2.js'
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].[contenthash:8].js',
         path: path.resolve(__dirname, 'dist'),
         // publicPath: './'
     },
@@ -64,15 +69,13 @@ module.exports = {
                 // loader: 'babel-loader',
                 exclude: /(node_modules)/
             },
-            // {
-            //     test: /\.css$/,
-            //     use: [MiniCssExtractPlugin.loader, 'css-loader']
-            // },
             {
-                test: /\.(scss|css)$/,
-                // use: ['happypack/loader?id=happyCSS']
-                // use: 'happypack/loader?id=happyCSS',
+                test: /\.(scss)$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'happypack/loader?id=css-pack']
             },
             {
                 test: /\.(png|jpg)$/,
@@ -103,45 +106,18 @@ module.exports = {
         ]
     },
     plugins: [
-        new HappyPack({
-            id: 'happyBabel',
-            loaders: [{
-                loader: 'babel-loader??cacheDirectory=true'
-            }],
-            threadPool,
-            verbose: true
-        }),
-        new HappyPack({
-            id: 'image',
-            loaders: [{
-                loader: 'url-loader',
-                options: {
-                    limit: 10000,
-                    name: '[name].[ext]'
-                }
-            }]
-        }),
-        // new HappyPack({
-        //     id: 'happyCSS',
-        //     // loaders: [{
-        //     //     use: [require('mini-css-extract-plugin').loader, 'css-loader', 'sass-loader']
-        //     // }],
-        //     // loaders: ['css-loader'],
-        //     loaders: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-        //     // threadPool,
-        //     // verbose: true
-        // }),
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: `[name].css`,
-            chunkFilename: "[id].css"
+            filename: `[name].[contenthash:8].css`,
+            // chunkFilename: "[id].css"
         }),
         new HtmlWebpackPlugin({
             inject: true,
             template: './index.html'
         }),
-        new DllReferencePlugin({
-            manifest: require('./dist/js/vendor.manifest.json')
-        }),
+        // new DllReferencePlugin({
+        //     manifest: require('./dist/js/vendor.manifest.json')
+        // }),
         // new DllReferencePlugin({
         //     manifest: require('./dist/echarts.manifest.json')
         // }),
@@ -183,6 +159,28 @@ module.exports = {
                     // reduce_vars: true
                 }
             }
+        }),
+        new HappyPack({
+            id: 'happyBabel',
+            loaders: [{
+                loader: 'babel-loader??cacheDirectory=true'
+            }],
+            threadPool,
+            verbose: true
+        }),
+        new HappyPack({
+            id: 'image',
+            loaders: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: '[name].[ext]'
+                }
+            }]
+        }),
+        new HappyPack({
+            id: 'css-pack',
+            loaders: ['css-loader'],
         }),
         // new webpack.optimize.UglifyJsPlugin({
         //     sourceMap: true,
