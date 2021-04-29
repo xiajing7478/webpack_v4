@@ -117,7 +117,7 @@ module.exports = {
             inject: true,
             template: './index.html'
         }),
-        // new WebpackDeepScopeAnalysisPlugin(),
+        new WebpackDeepScopeAnalysisPlugin(),
         // new DllReferencePlugin({
         //     manifest: require('./dist/js/vendor.manifest.json')
         // }),
