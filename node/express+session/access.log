@@ -1,0 +1,6 @@
+::ffff:127.0.0.1 - - [06/May/2021:07:22:15 +0000] "GET / HTTP/1.1" 302 54 "http://127.0.0.1:3004/login" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+::ffff:127.0.0.1 - - [06/May/2021:07:22:15 +0000] "GET /login HTTP/1.1" 200 641 "http://127.0.0.1:3004/login" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+::ffff:127.0.0.1 - - [06/May/2021:07:22:20 +0000] "POST /login HTTP/1.1" 200 45 "http://127.0.0.1:3004/login" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+::ffff:127.0.0.1 - - [06/May/2021:07:23:01 +0000] "GET /login HTTP/1.1" 200 641 "http://127.0.0.1:3004/login" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+::ffff:127.0.0.1 - - [06/May/2021:07:23:02 +0000] "GET /login HTTP/1.1" 304 - "http://127.0.0.1:3004/login" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+::ffff:127.0.0.1 - - [06/May/2021:07:23:05 +0000] "POST /login HTTP/1.1" 200 45 "http://127.0.0.1:3004/login" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"

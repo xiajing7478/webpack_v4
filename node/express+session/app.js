@@ -1,8 +1,10 @@
 const path = require('path')
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 const session = require('express-session')
 const bodyParse = require('body-parser')
+const fs = require('fs')
 const ejs = require('ejs').__express
 
 // 设置模板目录
@@ -24,6 +26,8 @@ app.use(session({
         maxAge: 1000 * 60 * 1
     }
 }));
+//  使用中间件，'combined' 是日志显示的格式
+app.use(morgan('combined', { stream: fs.createWriteStream(path.join(__dirname, 'access.log')) }))
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'))
