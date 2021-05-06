@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
 const port = process.env.port || 5000
 
@@ -11,8 +12,11 @@ const port = process.env.port || 5000
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(cookieParser())
 
-app.get('/', (req, res) => {
+app.get('/123', (req, res) => {
+    res.cookie('user123', 'asdfghj123')
+    res.send(req.cookies)
     res.send('welcome, you');
     res.end();
 })
@@ -30,8 +34,7 @@ app.post('/common', function(req, res) {
         //获取url中的请求参数
     var query = req.query
     console.log(query)
-        //在Express中没有内置获取表单post请求的api，
-        //这里我们需要使用一个第三方包 body-parser
+        //在Express中没有内置获取表单post请求的api，这里我们需要使用一个第三方包 body-parser
     var params = req.body
     console.log(params)
 })
